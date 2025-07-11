@@ -7,7 +7,10 @@ use Inertia\Inertia;
 class HomeController extends Controller
 {
     public function home() {
-        sleep(1);
         return Inertia::render('Home');
+    }
+
+    public function dashboard() {
+        return Inertia::render('Dashboard');
     }
 }

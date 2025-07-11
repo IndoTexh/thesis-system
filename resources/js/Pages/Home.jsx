@@ -1,13 +1,23 @@
 // resources/js/Pages/Home.jsx
 
 import { Link, usePage } from "@inertiajs/react";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Home = () => {
+  const { flash } = usePage().props;
   const { auth } = usePage().props;
+
+  useEffect(() => {
+    if(flash?.message) {
+      toast(flash.message);
+    }
+  }, [flash]);
 
   return (
     <div className="bg-white rounded-lg shadow p-8 space-y-6">
       {/* Welcome Heading */}
+      <Toaster position="top-center"/>
       <div className="text-center">
         <h1 className="text-3xl font-bold text-blue-600">Welcome to the Thesis Portal</h1>
         <p className="text-gray-600 mt-2 text-lg">
