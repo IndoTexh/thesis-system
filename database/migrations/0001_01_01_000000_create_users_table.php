@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['student', 'supervisor', 'admin']);
             $table->string('department')->nullable();
+            $table->boolean('force_logout')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

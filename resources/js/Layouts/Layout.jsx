@@ -7,7 +7,6 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
-      {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-xl font-semibold text-blue-600">
@@ -15,9 +14,13 @@ const Layout = ({ children }) => {
           </h1>
 
           <nav className="space-x-4">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+            
+            {!auth?.user ? (
+              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
               Home
             </Link>
+            ) : '' }
+            
 
             {auth?.user?.role === 'student' && (
               <Link href="/thesis/upload" className="text-gray-700 hover:text-blue-600 font-medium">

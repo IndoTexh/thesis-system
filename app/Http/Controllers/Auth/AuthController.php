@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +13,7 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    
     public function showLogin() {
         return Inertia::render('Auth/Login');
     }
@@ -22,6 +25,11 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = $request->user();
+            if ($user->force_logout == Service::forceLogout()) {
+                $user->force_logout = Service::notForceLogout();
+                $user->save();
+            }
             $request->session()->regenerate();
             return redirect('/dashboard')->with('message', 'Welcome');
         }
@@ -49,6 +57,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role = $request->role;
+        $user->force_logout = Service::notForceLogout();
         $user->save();
 
         return redirect('/login')->with('message', 'Account created! Please log in.');
@@ -56,6 +65,9 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
+        $user = $request->user();
+        $user->force_logout = Service::forceLogout();
+        $user->save();
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
