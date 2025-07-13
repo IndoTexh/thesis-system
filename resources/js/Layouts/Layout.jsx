@@ -37,17 +37,27 @@ const Layout = ({ children }) => {
               </Link>
             ) : '' }
 
-             {auth?.user ? (
-              <Link href="/dashboard" className="text-white  font-medium">
-                Dashboard
+            {auth?.user ? (
+              <Link href="/student/profile" className="text-white  font-medium">
+                My profile
               </Link>
             ) : '' }
 
-            {auth?.user?.role === 'student' && (
+             {auth?.user?.role === 'student' && (
               <Link href="/student/theses" className="text-white  font-medium">
                 My theses
               </Link>
             )}
+
+             {auth?.user?.role === 'admin' ? (
+              <Link href="/dashboard" className="text-white  font-medium">
+                Dashboard
+              </Link>
+            ) : (
+              <Link href="/student/profile/upload" className="text-white  font-medium">Upload profile</Link>
+            ) }
+
+           
 
             {auth?.user?.role === 'supervisor' && (
               <Link href="/supervisor/dashboard" className="text-gray-700  font-medium">

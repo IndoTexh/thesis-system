@@ -53,6 +53,9 @@ const Index = ({ theses }) => {
       {theses.map((thesis) => (
         <div key={thesis.id} className='bg-white shadow-lg shadow-gray-400 rounded-md px-4 py-4 space-y-2'>
           <div>
+            <img src={`/storage/${thesis.user.profile_picture}`} alt="profile" className='w-8 h-8 rounded-full'/>
+          </div>
+          <div>
             <span className='font-medium text-md text-gray-400'>Theses holder: </span>
             <span className='font-medium text-blue-600'>
               { thesis.user.name }

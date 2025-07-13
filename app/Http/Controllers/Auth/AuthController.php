@@ -13,13 +13,12 @@ use Inertia\Inertia;
 class AuthController extends Controller
 {
 
-    public function showLogin()
-    {
+    public function showLogin() {
         return Inertia::render('Auth/Login');
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
+
         $user = User::where('email', $request->email)->first();
         if ($user) {
             if ($user->force_logout == ForceLogoutService::forceLogout()) {
@@ -35,21 +34,19 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            return redirect('/dashboard')->with('message', 'Welcome');
         }
-        return redirect('/dashboard')->with('message', 'Welcome');
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.'
         ])->onlyInput('email');
     }
 
-    public function showRegister()
-    {
+    public function showRegister() {
         return Inertia::render('Auth/Register');
     }
 
-    public function register(Request $request)
-    {
+    public function register(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
@@ -67,8 +64,7 @@ class AuthController extends Controller
         return redirect('/login')->with('message', 'Account created! Please log in.');
     }
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         $user = $request->user();
         $user->force_logout = ForceLogoutService::forceLogout();
         $user->save();

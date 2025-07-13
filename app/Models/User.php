@@ -22,12 +22,21 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'force_logout'
-        
+        'department',
+        'force_logout',
+        'profile_picture'
     ];
 
     public function theses() {
         return $this->hasMany(Theses::class);
+    }
+
+    public function student() {
+        return $this->hasOne(Student::class);
+    }
+
+    public function supervisedClasses() {
+        return $this->belongsToMany(Classes::class, 'class_supervisors', 'classes_id', 'supervisor_id');
     }
 
     /**
