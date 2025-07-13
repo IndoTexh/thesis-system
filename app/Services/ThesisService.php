@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
+use App\Constants\ThesisStatus;
 use App\Models\Theses;
-use App\ThesisStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class ThesisService
+class ThesisService extends ThesisStatus
 {
 
     public function isThesisExist(array $data) {
@@ -23,7 +23,7 @@ class ThesisService
             $existing_theses->update([
                 'abstract' => $data['abstract'],
                 'file_path' => $data['document']->store('theses', 'public'),
-                'status' => ThesisStatus::Submitted
+                'status' =>  $this->Submitted
             ]);
             return $existing_theses;
         }
@@ -34,7 +34,7 @@ class ThesisService
         $theses->title = $data['title'];
         $theses->abstract = $data['abstract'];
         $theses->file_path = $file_path;
-        $theses->status = ThesisStatus::Submitted;
+        $theses->status =  $this->Submitted;
         return $theses->save();
     }
 

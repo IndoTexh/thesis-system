@@ -22,7 +22,7 @@ class ProfileController extends Controller
         return Inertia::render('Student/Upload');
     }
 
-     public function confirmView() {
+    public function confirmView() {
         return Inertia::render('Student/ConfirmPass');
     }
 
@@ -62,7 +62,5 @@ class ProfileController extends Controller
             'new_password' => 'required|min:6|confirmed'
         ]);
         $this->profileService->updatePassword($request->current_password, $request->new_password, $request->user());
-    }
-
-    
+    }    
 }

@@ -29,13 +29,13 @@ Route::middleware('auth')->group(function() {
   Route::post('/confirm-password', [ProfileController::class, 'validatePassword'])->middleware(['throttle:6,1']);
 
   Route::get('/student/profile', [ProfileController::class, 'index'])->middleware(['password.confirm']);
-  Route::get('/student/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
+  Route::get('/student/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload')->middleware('password.confirm');
   Route::post('/student/profile/upload', [ProfileController::class, 'store'])->name('profile.store');
   Route::post('/student/profile/update', [ProfileController::class, 'updateInfo'])->name('profile.update');
   Route::post('/student/profile/update-password', [ProfileController::class, 'updatePassword']);
 
 
-  Route::get('/student/theses', [ThesisController::class, 'index'])->name('theses.index');
+  Route::get('/student/theses', [ThesisController::class, 'index'])->name('theses.index')->middleware('password.confirm');
   Route::get('/student/theses/upload', [ThesisController::class, 'create'])->name('theses.create');
   Route::post('/student/theses/upload', [ThesisController::class, 'store']);
   Route::get('/student/theses/{thesis}/edit', [ThesisController::class, 'edit']);
