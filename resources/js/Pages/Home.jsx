@@ -53,20 +53,21 @@ const Home = () => {
       <div className="text-center mt-8">
         {auth?.user ? (
           <Link
-            href={
+           /*  href={
               auth.user.role === "student"
                 ? "/thesis/upload"
                 : auth.user.role === "supervisor"
                 ? "/supervisor/dashboard"
                 : "/admin/dashboard"
-            }
+            } */
+           href="/dashboard"
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
           >
             Go to Dashboard
           </Link>
         ) : (
           <>
-            <Link
+            {/* <Link
               href="/login"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
             >
@@ -78,7 +79,7 @@ const Home = () => {
               className="bg-gray-100 hover:bg-gray-200 px-6 py-2 rounded text-gray-800"
             >
               Register
-            </Link>
+            </Link> */}
           </>
         )}
       </div>

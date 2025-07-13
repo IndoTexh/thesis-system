@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('abstract')->nullable();
             $table->string('file_path');
             $table->string('department')->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['draft', 'submitted', 'approved', 'rejected'])->default('submitted');
             $table->timestamps();
         });
     }

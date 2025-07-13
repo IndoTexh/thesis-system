@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Services;
 
-class Service
+class ForceLogoutService
 {
     /**
      * Create a new class instance.
@@ -11,7 +11,7 @@ class Service
     {
 
     }
-
+    
     public static function notForceLogout() {
         return false;
     }

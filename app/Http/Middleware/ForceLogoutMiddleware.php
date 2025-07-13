@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Service;
+use App\Services\ForceLogoutService;
 use Closure;
+use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ class ForceLogoutMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->force_logout == Service::forceLogout()) {
+        if (Auth::check() && Auth::user()->force_logout == ForceLogoutService::forceLogout()) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

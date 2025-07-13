@@ -23,7 +23,12 @@ class User extends Authenticatable
         'password',
         'role',
         'force_logout'
+        
     ];
+
+    public function theses() {
+        return $this->hasMany(Theses::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

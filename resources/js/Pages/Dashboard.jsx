@@ -14,7 +14,6 @@ const Dashboard = () => {
   return (
     <>
     <Toaster position="top-center"/>
-    <h1>Dashboard</h1>
     </>
   )
 }
