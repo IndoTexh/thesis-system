@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const ConfirmPass = () => {
-
   const { flash } = usePage().props;
 
   useEffect(() => {
     if(flash?.message) {
       toast.error(flash.message);
+       const audio = new Audio(`/storage/audio/${flash?.audio}`);
+       audio.play();
     }
   }, [flash]);
 

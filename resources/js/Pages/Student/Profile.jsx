@@ -18,8 +18,14 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    if (flash?.message && flash?.status == 400) {
+    if (flash?.message && flash?.status == 200) {
+      toast.success(flash.message);
+      const audio = new Audio(`/storage/audio/${flash.audio}`);
+      audio.play();
+    }else {
       toast.error(flash.message);
+      const audio = new Audio(`/storage/audio/${flash.audio}`);
+      audio.play();
     }
   }, [flash]);
 
