@@ -42,7 +42,7 @@ class ThesisService extends ThesisStatus
     public function updateThesis(Theses $thesis, array $data) {
         $thesis->title = $data['title'];
         $thesis->abstract = $data['abstract'];
-
+        
         if (isset($data['document'])) {
             Storage::disk('public')->delete($thesis->file_path);
             $file_path = $data['document']->store('theses', 'public');

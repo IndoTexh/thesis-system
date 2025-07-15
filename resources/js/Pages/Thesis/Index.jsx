@@ -7,11 +7,14 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Index = ({ theses }) => {
 
+  const audio = new Audio('/storage/audio/success_audio.mp3');
+
   const { flash } = usePage().props;
 
   useEffect(() => {
     if(flash?.message) {
       toast.success(flash.message);
+      audio.play();
     }
   }, [flash]);
 
@@ -81,7 +84,7 @@ const Index = ({ theses }) => {
               className="font-medium text-md text-gray-400 flex items-center space-x-2 hover:underline"
               >
                 <span>Preview</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-blue-600"></i>
+                <i className="fa-solid fa-arrow-up-right-from-square text-blue-600"></i>
             </a>
              <a
                 href={`/storage/${thesis.file_path}`}
@@ -89,7 +92,7 @@ const Index = ({ theses }) => {
                 className="font-medium text-md text-gray-400 flex items-center space-x-2 hover:underline"
               >
                 <span>Download</span>
-                <i class="fa-solid fa-file-export text-blue-600"></i>
+                <i className="fa-solid fa-file-export text-blue-600"></i>
               </a>
           </div>
           <div>

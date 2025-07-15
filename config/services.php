@@ -36,7 +36,8 @@ return [
     ],
 
     'telegram-bot-api' => [
-        'token' => env('TELEGRAM_BOT_TOKEN', '7720178583:AAGAIPR8NacLQt8ls5OKPXPvfGVf0vCX4Sk')
+        'token' => env('TELEGRAM_BOT_TOKEN', '7720178583:AAGAIPR8NacLQt8ls5OKPXPvfGVf0vCX4Sk'),
+        //'system_500' => env('SYSTEM_TELEGRAM_500', '7655039762:AAGwsg1DOmNniCO-rgcoGgMyAssAE2R1_yk')
     ],
 
     'telegram_id' => env('TELEGRAM_ID', '7720178583'),
