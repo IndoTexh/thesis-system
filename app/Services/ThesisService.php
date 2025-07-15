@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constants\ThesisStatus;
+use App\Jobs\NotificationJob;
 use App\Models\Theses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +28,6 @@ class ThesisService extends ThesisStatus
             ]);
             return $existing_theses;
         }
-        
         $file_path = $data['document']->store('theses', 'public');
         $theses = new Theses();
         $theses->user_id = Auth::id();
@@ -35,7 +35,8 @@ class ThesisService extends ThesisStatus
         $theses->abstract = $data['abstract'];
         $theses->file_path = $file_path;
         $theses->status =  $this->Submitted;
-        return $theses->save();
+        $theses->save();
+        return NotificationJob::dispatch(Auth::user()->only('name', 'email', 'role'));
     }
 
     public function updateThesis(Theses $thesis, array $data) {

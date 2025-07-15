@@ -20,8 +20,4 @@ class Theses extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
-
-    protected $casts = [
-        'status' => ThesisStatus::class,
-    ];
 }
