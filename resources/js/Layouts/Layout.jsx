@@ -88,7 +88,7 @@ const Layout = ({ children }) => {
       </main>
 
       <footer className="bg-white text-center text-sm text-gray-500 py-4 border-t">
-        © {new Date().getFullYear()} BELTEI International University — Thesis Portal
+        © {new Date().getFullYear()} BELTEI International University — {/* Thesis Portal */} Developed by: <span className="text-blue-600 font-medium">Doeuk Sothanroth</span>
       </footer>
     </div>
   );

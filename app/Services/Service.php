@@ -2,20 +2,21 @@
 
 namespace App\Services;
 
-class ForceLogoutService
+class Service
 {
     /**
      * Create a new class instance.
      */
     public function __construct()
     {
+        //
     }
 
-    public static function true() {
+    public static function trueValue() {
         return true;
     }
 
-    public static function false() {
+    public static function falseValue() {
         return false;
     }
 }

@@ -1,14 +1,12 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { PrimeReactProvider } from "@primereact/core"
 import Aura from '@primeuix/themes/aura';
-import { InputText } from 'primereact/inputtext';
 import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Index = ({ theses }) => {
 
   const audio = new Audio('/storage/audio/success_audio.mp3');
-
   const { flash } = usePage().props;
 
   useEffect(() => {
@@ -65,7 +63,7 @@ const Index = ({ theses }) => {
             </span>
           </div>
           <div>
-            <span className='font-medium text-md text-gray-400'>TItle: </span>
+            <span className='font-medium text-md text-gray-400'>Title: </span>
             <span className='font-medium text-blue-600'>{thesis.title}</span>
           </div>
           <div>
@@ -73,7 +71,7 @@ const Index = ({ theses }) => {
             <span className='font-medium text-blue-600'>{thesis.status}</span>
           </div>
           <div>
-            <span className='font-medium text-md text-gray-400'>Date of Submit: </span>
+            <span className='font-medium text-md text-gray-400'>Date of submission: </span>
             <span className='font-medium text-blue-600'>{formatDate(thesis.created_at)}</span>
           </div>
           <div className='flex space-x-3  flex-col space-y-1'>

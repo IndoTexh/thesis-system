@@ -22,12 +22,12 @@ class NotificationJob implements ShouldQueue
     {
         $this->user = $user;
     }
-    
+
     public function handle(): void
     {
         try {
             Notification::route(NotificationService::telegramRoute(), env('TELEGRAM_ID'))
-            ->notify(new TelegramNotification($this->user));
+                ->notify(new TelegramNotification($this->user));
         } catch (Exception $ex) {
             \Log($ex->getMessage());
         }

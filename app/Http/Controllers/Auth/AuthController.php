@@ -18,19 +18,16 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
-
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            if ($user->force_logout == ForceLogoutService::forceLogout()) {
-                $user->force_logout = ForceLogoutService::notForceLogout();
-                $user->save();
-            }
-        }
-
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
+
+        $user = User::where('email', $credentials['email'])->first();
+        if ($user && $user->force_logout == ForceLogoutService::true()) {
+            $user->force_logout = ForceLogoutService::false();
+            $user->save();
+        }
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -59,14 +56,14 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role = $request->role;
-        $user->force_logout = ForceLogoutService::notForceLogout();
+        $user->force_logout = ForceLogoutService::false();
         $user->save();
         return redirect('/login')->with('message', 'Account created! Please log in.');
     }
 
     public function logout(Request $request) {
         $user = $request->user();
-        $user->force_logout = ForceLogoutService::forceLogout();
+        $user->force_logout = ForceLogoutService::true();
         $user->save();
         Auth::logout();
         $request->session()->invalidate();

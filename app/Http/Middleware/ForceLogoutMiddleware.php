@@ -18,7 +18,7 @@ class ForceLogoutMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->force_logout == ForceLogoutService::forceLogout()) {
+        if (Auth::check() && Auth::user()->force_logout == ForceLogoutService::true()) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
