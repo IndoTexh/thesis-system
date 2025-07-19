@@ -18,19 +18,12 @@ const { data, setData, post, processing, errors } = useForm({
 
   useEffect(() => {
     if (flash?.message) {
-      toast.success(flash.message);
+      /* toast.success(flash.message); */
+      toast.error(flash.message);
+      const audio = new Audio(`/storage/audio/${flash.audio}`);
+      audio.play();
     }
   }, [flash]);
-
-  /* useEffect(() => {
-    if (errors?.email) {
-      toast.error(errors.email, {
-        duration: 3000,
-      });
-    }
-  }, [errors]); */
-
-
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
