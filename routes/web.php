@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecurityController;
+use App\Http\Controllers\SupervisorClassController;
 use App\Http\Controllers\ThesisController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -29,11 +32,11 @@ Route::middleware('auth')->group(function() {
   Route::get('/confirm-password', [SecurityController::class, 'confirmView'])->name('password.confirm');
   Route::post('/confirm-password', [SecurityController::class, 'validatePassword'])->middleware(['throttle:6,1']);
 
-  Route::get('/student/profile', [ProfileController::class, 'index'])->middleware(['password.confirm']);
-  Route::get('/student/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload')->middleware('password.confirm');
-  Route::post('/student/profile/upload', [ProfileController::class, 'store'])->name('profile.store');
-  Route::post('/student/profile/update', [ProfileController::class, 'updateInfo'])->name('profile.update');
-  Route::post('/student/profile/update-password', [ProfileController::class, 'updatePassword']);
+  Route::get('/profile', [ProfileController::class, 'index'])->middleware(['password.confirm']);
+  Route::get('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
+  Route::post('/profile/upload', [ProfileController::class, 'store'])->name('profile.store');
+  Route::post('/profile/update', [ProfileController::class, 'updateInfo'])->name('profile.update');
+  Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
 
   Route::get('/student/theses', [ThesisController::class, 'index'])->name('theses.index')->middleware('password.confirm');
   Route::get('/student/theses/upload', [ThesisController::class, 'create'])->name('theses.create');
@@ -41,3 +44,14 @@ Route::middleware('auth')->group(function() {
   Route::get('/student/theses/{thesis}/edit', [ThesisController::class, 'edit']);
   Route::post('/student/theses/{thesis}/update', [ThesisController::class, 'update']);
 });
+
+Route::middleware(['auth'])->group(function() {
+  Route::get('/admin/create-major-&-class', [MajorController::class, 'create'])->name('major.create');
+  Route::post('/admin/create-class', [ClassController::class, 'store']);
+  Route::post('/admin/create-major', [MajorController::class, 'store']);
+
+  Route::get('/admin/create-supervisor-&-class', [SupervisorClassController::class, 'create']);
+
+});
+
+

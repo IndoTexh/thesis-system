@@ -23,7 +23,9 @@ const Profile = () => {
       const audio = new Audio(`/storage/audio/${flash.audio}`);
       audio.play();
     }else {
-      toast.error(flash.message);
+      if (flash?.message) {
+        toast.error(flash.message);
+      }
       const audio = new Audio(`/storage/audio/${flash.audio}`);
       audio.play();
     }
@@ -31,12 +33,12 @@ const Profile = () => {
 
   const handleInfoSubmit = (e) => {
     e.preventDefault();
-    infoForm.post('/student/profile/update');
+    infoForm.post('/profile/update');
   };
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    passwordForm.post('/student/profile/update-password');
+    passwordForm.post('/profile/update-password');
   };
 
   return (

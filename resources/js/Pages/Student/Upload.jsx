@@ -17,7 +17,7 @@ const Index = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post('/student/profile/upload', {
+    post('/profile/upload', {
       forceFormData: true
     });
   }

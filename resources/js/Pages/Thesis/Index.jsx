@@ -50,7 +50,7 @@ const Index = ({ theses }) => {
       <h1 className="text-2xl font-bold">My theses</h1>
     <Link href="/student/theses/upload" className='text-blue-600 hover:underline font-medium'>Upload thesis</Link>
     </div>
-     <div className="w-4xl mx-auto grid grid-cols-3 space-x-2">
+     <div className="w-4xl mx-auto grid grid-cols-3 space-y-2 gap-2">
       {theses.map((thesis) => (
         <div key={thesis.id} className='bg-white shadow-lg shadow-gray-400 rounded-md px-4 py-4 space-y-2'>
           <div>

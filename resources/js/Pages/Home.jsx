@@ -28,21 +28,21 @@ const Home = () => {
       {/* Info Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
         <div className="border rounded p-4 text-center shadow-sm bg-blue-50">
-          <h3 className="text-lg font-semibold text-blue-700">For Students</h3>
+          <h3 className="text-lg font-semibold text-blue-700">Students</h3>
           <p className="text-gray-600 mt-2 text-sm">
             Upload your thesis, track feedback, and stay updated on approval status.
           </p>
         </div>
 
         <div className="border rounded p-4 text-center shadow-sm bg-green-50">
-          <h3 className="text-lg font-semibold text-green-700">For Supervisors</h3>
+          <h3 className="text-lg font-semibold text-green-700">Supervisors</h3>
           <p className="text-gray-600 mt-2 text-sm">
             Review and provide structured feedback for your students’ submissions.
           </p>
         </div>
 
         <div className="border rounded p-4 text-center shadow-sm bg-yellow-50">
-          <h3 className="text-lg font-semibold text-yellow-700">For Admins</h3>
+          <h3 className="text-lg font-semibold text-yellow-700">Admin</h3>
           <p className="text-gray-600 mt-2 text-sm">
             Manage users, monitor thesis activity, and maintain digital archives.
           </p>

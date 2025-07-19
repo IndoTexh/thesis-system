@@ -50,7 +50,6 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
             'role' => 'required|in:student,supervisor'
         ]);
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;

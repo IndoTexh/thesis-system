@@ -17,17 +17,24 @@ const Layout = ({ children }) => {
           </h1>
 
           <nav className="space-x-4 relative">
-
-            {auth?.user ? (
-              <button onClick={() => setShowMenu(!showMenu)} className="bg-blue-600 text-white px-4 py-1 w-[220px] text-sm">
-                {auth?.user ? `Welcome, ${auth.user.name}` : ''}
-              </button>
-            ) : (
-              <Link href="/login" className="text-blue-600 font-medium">
-                Login
-              </Link>
+           {auth?.user ? (
+                <button
+                  onClick={() => setShowMenu(!showMenu)}
+                  className="bg-blue-600 text-white px-4 py-1 w-[220px] text-sm flex items-center gap-4 rounded-md"
+                >
+                    <img src={`/storage/${auth.user.profile_picture}`} alt="profile" className="w-7 h-7 rounded-full"/>
+                    <span>{`${auth.user.name}`}</span>
+                </button>
+              ) : (
+              <div className="flex gap-4">
+                <Link href="/login" className="text-blue-600 font-medium">
+                  Login
+                </Link>
+                <Link href="/register" className="text-gray-600 font-medium">
+                  Register
+                </Link>
+              </div>
             )}
-
           
             {showMenu ? (
               <div onClick={() => setShowMenu(!showMenu)}  className="flex flex-col bg-blue-600 space-y-4 p-2 absolute w-[220px]  left-0 rounded-b-md border-t border-white">
@@ -38,7 +45,7 @@ const Layout = ({ children }) => {
             ) : '' }
 
             {auth?.user ? (
-              <Link href="/student/profile" className="text-white  font-medium">
+              <Link href="/profile" className="text-white  font-medium">
                 My profile
               </Link>
             ) : '' }
@@ -49,25 +56,30 @@ const Layout = ({ children }) => {
               </Link>
             )}
 
-             {auth?.user?.role === 'admin' ? (
+
+           {/*  {auth?.user?.role === 'supervisor' && (
+              <Link href="/supervisor/dashboard" className="text-white  font-medium">
+                Supervisor Panel
+              </Link>
+            )} */}
+
+            {auth?.user?.role === 'admin' ? (
               <Link href="/dashboard" className="text-white  font-medium">
                 Dashboard
               </Link>
             ) : (
-              <Link href="/student/profile/upload" className="text-white  font-medium">Upload profile</Link>
+              <Link href="/profile/upload" className="text-white  font-medium">Upload profile</Link>
             ) }
 
-           
-
-            {auth?.user?.role === 'supervisor' && (
-              <Link href="/supervisor/dashboard" className="text-gray-700  font-medium">
-                Supervisor Panel
+            {auth?.user?.role === 'admin' && (
+              <Link href="/admin/create-major-&-class" className="font-medium text-white">
+                Major & Class
               </Link>
             )}
 
             {auth?.user?.role === 'admin' && (
-              <Link href="/admin/dashboard" className="text-gray-700  font-medium">
-                Admin
+              <Link href="/admin/create-supervisor-&-class" className="font-medium text-white">
+                Supervisor & Class
               </Link>
             )}
 

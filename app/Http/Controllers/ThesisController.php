@@ -11,22 +11,26 @@ class ThesisController extends Controller
 {
     protected $thesisService;
 
-    public function __construct(ThesisService $thesisService) {
+    public function __construct(ThesisService $thesisService)
+    {
         $this->thesisService = $thesisService;
     }
-    
-    public function index() {
+
+    public function index()
+    {
         $theses = auth()->user()->theses()->with('user')->latest()->get();
         return Inertia::render('Thesis/Index', [
             'theses' => $theses,
         ]);
     }
 
-    public function create() {
+    public function create()
+    {
         return Inertia::render('Thesis/Create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'abstract' => 'required|string',
@@ -37,7 +41,8 @@ class ThesisController extends Controller
         return redirect()->route('theses.index')->with('message', 'Thesis submitted successfully!');
     }
 
-    public function edit(Theses $thesis) {
+    public function edit(Theses $thesis)
+    {
         if ($thesis) {
             return Inertia::render('Thesis/Edit', [
                 'thesis' => $thesis
@@ -46,12 +51,13 @@ class ThesisController extends Controller
         return back()->with('message', 'Thesis not found!');
     }
 
-    public function update(Request $request, Theses $thesis) {
+    public function update(Request $request, Theses $thesis)
+    {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'abstract' => 'required|string',
             'document' => 'nullable|file|mimes:pdf,docx|max:10240',
-        ]);      
+        ]);
         $this->thesisService->updateThesis($thesis, $validated);
         return redirect()->route('theses.index')->with('message', 'Thesis updated successfully!');
     }
