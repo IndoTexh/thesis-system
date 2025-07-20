@@ -34,7 +34,7 @@ class Service
 
     public static function waitForActivateMessage()
     {
-        return  "You won't be able to login until the the admin active your account!";
+        return  "You won't be able to login until the the admin activated your account!";
     }
 
     public static function welcomeMessage()
@@ -49,10 +49,11 @@ class Service
 
     public static function accountCreatedMessage()
     {
-        return "Account created! Please log in.";
+        return "Account created.";
     }
 
-    public static function logoutMessage() {
+    public static function logoutMessage()
+    {
         return "Your're logged out!";
     }
 }

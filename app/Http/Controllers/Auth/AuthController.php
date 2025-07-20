@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\RoleService;
 use App\Services\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,14 +62,21 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
             'role' => 'required|in:student,supervisor'
         ]);
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        $user->force_logout = false;
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'allow_access' => in_array($request->role, [RoleService::admin(), RoleService::supervisor()]) ? false : true,
+            'force_logout' => false,
+        ]);
         $user->save();
-        return redirect('/login')->with('message', Service::accountCreatedMessage());
+        
+        return redirect('/login')->with([
+            'message' => Service::accountCreatedMessage(),
+            'code' => 200,
+            'audio' => Service::successAudio()
+        ]);
     }
 
     public function logout(Request $request)

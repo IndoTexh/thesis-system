@@ -17,11 +17,14 @@ const { data, setData, post, processing, errors } = useForm({
   };
 
   useEffect(() => {
-    if (flash?.message) {
-      /* toast.success(flash.message); */
-      toast.error(flash.message);
+    if (flash?.message && flash.code == 200) {
+      toast.success(flash.message);
       const audio = new Audio(`/storage/audio/${flash.audio}`);
       audio.play();
+    } else {
+      toast.error(flash.message);
+      const audio = new Audio(`/storage/audio/${flash.audio}`);
+      audio.play(); 
     }
   }, [flash]);
 

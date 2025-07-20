@@ -72,6 +72,12 @@ const Layout = ({ children }) => {
             ) }
 
             {auth?.user?.role === 'admin' && (
+              <Link href="/admin/activate-supervisor-account" className="font-medium text-white">
+                Activate supervisor account
+              </Link>
+            )}
+
+            {auth?.user?.role === 'admin' && (
               <Link href="/admin/create-major-&-class" className="font-medium text-white">
                 Major & Class
               </Link>

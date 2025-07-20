@@ -8,5 +8,4 @@ class ThesisStatus
     public $Submitted = 'submitted';
     public $Approved = 'approved';
     public $Rejected = 'rejected';
-
 }

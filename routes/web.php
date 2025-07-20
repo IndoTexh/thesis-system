@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivateAccController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
@@ -51,6 +52,9 @@ Route::middleware(['auth'])->group(function() {
   Route::post('/admin/create-major', [MajorController::class, 'store']);
 
   Route::get('/admin/create-supervisor-&-class', [SupervisorClassController::class, 'create']);
+  Route::get('/admin/activate-supervisor-account', [ActivateAccController::class, 'showActivate']);
+  Route::post('/admin/activate-supervisor-account/{user}', [ActivateAccController::class, 'activate']);
+  Route::post('/admin/disactivate-supervisor-account/{user}', [ActivateAccController::class, 'disactivate']);
 
 });
 
