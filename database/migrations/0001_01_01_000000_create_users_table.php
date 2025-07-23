@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('role', ['student', 'supervisor', 'admin'])->default('student');
             $table->string('department')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->boolean('allow_access')->default(false);
             $table->boolean('force_logout')->default(false);
             $table->rememberToken();
             $table->timestamps();

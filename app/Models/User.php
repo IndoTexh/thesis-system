@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role',
         'department',
         'force_logout',
+        'allow_access',
         'profile_picture'
     ];
 
