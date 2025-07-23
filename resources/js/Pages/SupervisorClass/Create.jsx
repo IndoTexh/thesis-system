@@ -2,31 +2,33 @@ import { useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-const Create = ({ majors }) => {
+const Create = ({ classes, supervisors }) => {
   const { flash } = usePage().props;
 
   useEffect(() => {
     if (flash?.message) {
-      toast.success(flash.message);
-
-      if (flash.audio) {
+      if (flash.code == 200) {
+        toast.success(flash.message);
         const audio = new Audio(`/storage/audio/${flash.audio}`);
-        audio.play().catch((err) => {
-          console.error('Audio playback failed:', err);
-        });
+        audio.play();
+      } else {
+        toast.error(flash.message);
+        const audio = new Audio(`/storage/audio/${flash.audio}`);
+        audio.play();
       }
     }
   }, [flash]);
 
-  const majorForm = useForm({
-    major_name: '',
+  const supervisorClassForm = useForm({
+    classes_id: '',
+    supervisor_id: '',
   });
 
-  const handleSubmitMajor = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    majorForm.post('/admin/create-major', {
+    supervisorClassForm.post('/admin/create-supervisor-&-class', {
       onFinish: () => {
-        majorForm.reset();
+        supervisorClassForm.reset();
       },
     });
   };
@@ -39,26 +41,39 @@ const Create = ({ majors }) => {
      {/* create major section */}
       <div className="bg-white shadow-lg rounded-md p-5 w-xl mb-5">
         <h1 className="text-2xl font-bold mb-6">Create supervisor's class</h1>
-        <form onSubmit={handleSubmitMajor} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-1 font-medium">Major Name</label>
-              <input
-                type="text"
-                value={majorForm.data.major_name}
-                onChange={(e) => majorForm.setData('major_name', e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-              {majorForm.errors.major_name && (
-                <p className="text-red-500 text-sm mt-1">{majorForm.errors.major_name}</p>
-              )}
+            <label className="block mb-1 font-medium">Class</label>
+              <select className="w-full border border-gray-300 rounded px-3 py-2"
+              value={supervisorClassForm.data.classes_id}
+              onChange={(e) => supervisorClassForm.setData('classes_id', e.target.value)}
+              >
+                <option value="">-- Select Class --</option>
+                {classes.map((c) => (
+                  <option key={c.id} value={c.id}>{c.class_name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+            <label className="block mb-1 font-medium">Supervisor</label>
+              <select className="w-full border border-gray-300 rounded px-3 py-2"
+              value={supervisorClassForm.data.supervisor_id}
+              onChange={(e) => supervisorClassForm.setData('supervisor_id', e.target.value)}
+              >
+                <option value="">-- Select Supervisor --</option>
+                {supervisors.map((s) => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </select>
             </div>
 
             <button
               type="submit"
-              disabled={majorForm.processing}
+              disabled={supervisorClassForm.processing}
               className="bg-blue-600 text-white px-4 py-2 rounded disabled:bg-blue-300"
             >
-              {majorForm.processing ? 'Creating...' : 'Create'}
+              {supervisorClassForm.processing ? 'Creating...' : 'Create'}
             </button>
         </form>
       </div>

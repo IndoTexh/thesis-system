@@ -40,7 +40,7 @@ class ProfileService
         ]);
       }
       $user->password = Hash::make($new_password);
-      $user->force_logout = ForceLogoutService::true();
+      $user->force_logout = Service::true();
       $user->save();
       return true;
     }

@@ -52,6 +52,9 @@ Route::middleware(['auth'])->group(function() {
   Route::post('/admin/create-major', [MajorController::class, 'store']);
 
   Route::get('/admin/create-supervisor-&-class', [SupervisorClassController::class, 'create']);
+  Route::post('/admin/create-supervisor-&-class', [SupervisorClassController::class, 'store']);
+  Route::get('/supervisor/class-manage', [SupervisorClassController::class, 'myClass']);
+
   Route::get('/admin/activate-supervisor-account', [ActivateAccController::class, 'showActivate']);
   Route::post('/admin/activate-supervisor-account/{user}', [ActivateAccController::class, 'activate']);
   Route::post('/admin/disactivate-supervisor-account/{user}', [ActivateAccController::class, 'disactivate']);

@@ -44,6 +44,13 @@ const Layout = ({ children }) => {
               </Link>
             ) : '' }
 
+            
+           {auth?.user?.role === 'supervisor' && (
+              <Link href="/supervisor/class-manage" className="text-white  font-medium">
+                My class
+              </Link>
+            )}
+
             {auth?.user ? (
               <Link href="/profile" className="text-white  font-medium">
                 My profile
@@ -55,14 +62,7 @@ const Layout = ({ children }) => {
                 My theses
               </Link>
             )}
-
-
-           {/*  {auth?.user?.role === 'supervisor' && (
-              <Link href="/supervisor/dashboard" className="text-white  font-medium">
-                Supervisor Panel
-              </Link>
-            )} */}
-
+            
             {auth?.user?.role === 'admin' ? (
               <Link href="/dashboard" className="text-white  font-medium">
                 Dashboard
@@ -73,7 +73,7 @@ const Layout = ({ children }) => {
 
             {auth?.user?.role === 'admin' && (
               <Link href="/admin/activate-supervisor-account" className="font-medium text-white">
-                Activate supervisor account
+                Activate supervisor
               </Link>
             )}
 

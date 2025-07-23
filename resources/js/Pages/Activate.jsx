@@ -67,7 +67,7 @@ const Activate = ({ users }) => {
             <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
-        <tbody className="text-sm text-gray-600">
+        <tbody className="text-sm text-gray-600 text-center">
           {users.map((user, index) => (
             <tr key={user.id} className="hover:bg-gray-50">
               <td className="px-4 py-2">{index + 1}</td>
