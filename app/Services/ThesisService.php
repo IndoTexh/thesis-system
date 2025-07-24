@@ -21,29 +21,24 @@ class ThesisService extends ThesisStatus
 
     public function storeThesis(array $data)
     {
-        try {
-
-            $existing_theses = $this->isThesisExist($data);
-            if ($existing_theses) {
-                Storage::disk('public')->delete($existing_theses->file_path);
-                $existing_theses->update([
-                    'abstract' => $data['abstract'],
-                    'file_path' => $data['document']->store('theses', 'public'),
-                    'status' =>  $this->Submitted
-                ]);
-                return $existing_theses;
-            }
-            Theses::create([
-                'user_id' => Auth::id(),
-                'title' => $data['title'],
+        $existing_theses = $this->isThesisExist($data);
+        if ($existing_theses) {
+            Storage::disk('public')->delete($existing_theses->file_path);
+            $existing_theses->update([
                 'abstract' => $data['abstract'],
                 'file_path' => $data['document']->store('theses', 'public'),
-                'status' => $this->Submitted
+                'status' =>  $this->Submitted
             ]);
-            NotificationJob::dispatch(Auth::user()->only('name', 'email', 'role'));
-        } catch (Exception $ex) {
-            Log('error:', $ex->getMessage());
+            return $existing_theses;
         }
+        Theses::create([
+            'user_id' => Auth::id(),
+            'title' => $data['title'],
+            'abstract' => $data['abstract'],
+            'file_path' => $data['document']->store('theses', 'public'),
+            'status' => $this->Submitted
+        ]);
+        NotificationJob::dispatch(Auth::user()->only('name', 'email', 'role'));
     }
 
     public function updateThesis(Theses $thesis, array $data)

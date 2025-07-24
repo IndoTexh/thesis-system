@@ -56,4 +56,9 @@ class Service
     {
         return "Your're logged out!";
     }
+
+    public static function userNotFound() 
+    {
+        
+    }
 }
