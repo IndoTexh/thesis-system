@@ -57,8 +57,13 @@ class Service
         return "Your're logged out!";
     }
 
-    public static function userNotFound() 
+    public static function userNotFound()
     {
         return "User doesn't exist!";
+    }
+
+    public static function thesisNotFound()
+    {
+        return "Thesis not found.";
     }
 }
