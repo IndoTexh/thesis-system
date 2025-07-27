@@ -10,3 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
+Route::post('/logout', [AuthApiController::class, 'logout']);
+Route::post('/check-session', [AuthApiController::class, 'checkSession']);

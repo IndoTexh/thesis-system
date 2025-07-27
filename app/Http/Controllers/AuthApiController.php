@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\RoleService;
 use App\Services\Service;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -33,12 +32,12 @@ class AuthApiController extends Controller
             if (!$user->allow_access) {
                 return response()->json([
                     'message' => Service::waitForActivateMessage(),
-                ], 200);
+                ], 400);
             }
         }
         return response()->json([
             'message' => Service::userNotFound(),
-        ], 400);
+        ], 404);
     }
 
     public function register(Request $request)
@@ -58,11 +57,43 @@ class AuthApiController extends Controller
             'force_logout' => false,
         ]);
         $user->save();
-
         return response()->json([
             'message' => 'User registered successfully',
             'token' => $user->createToken('auth_token')->plainTextToken,
             'user' => $user
+        ], 200);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $user->tokens->delete();
+            $user->force_logout = true;
+            $user->save();
+            return response()->json([
+                'message' => 'You are logged out.',
+                'user' => $user,
+                'token' => null
+            ], 201);
+        }
+        return response()->json([
+            'message' => Service::userNotFound(),
+        ], 404);
+    }
+
+    public function checkSession(Request $request)
+    {
+        $user = $request->user();
+        if ($user && $user->force_logout) {
+            $user->tokens->delete();
+            return response()->json([
+                'logout' => true,
+                'message' => 'Session expired or force logout.'
+            ], 401);
+        }
+        return response()->json([
+            'logout' => false,
         ], 200);
     }
 }

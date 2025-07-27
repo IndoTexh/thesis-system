@@ -59,6 +59,6 @@ class Service
 
     public static function userNotFound() 
     {
-        
+        return "User doesn't exist!";
     }
 }
