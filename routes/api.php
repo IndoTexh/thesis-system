@@ -24,4 +24,5 @@ Route::post('/thesis-update', [ThesisApiController::class, 'update']);
 
 Route::post('/profile-upload', [ProfileApiController::class, 'store']);
 Route::post('/profile-update-info', [ProfileApiController::class, 'updateInfo']);
+Route::post('profile-update-password', [ProfileApiController::class, 'updatePass']);
 

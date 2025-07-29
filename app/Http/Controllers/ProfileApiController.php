@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileApiController extends Controller
@@ -39,6 +40,25 @@ class ProfileApiController extends Controller
             $user->save();
             return response()->json([
                 'message' => 'User credentials updated successfully',
+                'user' => $user,
+            ], 200);
+        }
+        return response()->json([
+            'message' => Service::userNotFound(),
+            'user' => $user,
+        ], 404);
+    }
+
+    public function updatePass(Request $request)
+    {
+        $user = User::where('id', $request->user_id)->first();
+        if ($user && Hash::check($request->current_password, $user->password)) {
+            $user->password = Hash::make($request->new_password);
+            $user->force_logout = true;
+            $user->tokens->delete();
+            $user->save;
+            return response()->json([
+                'message' => 'User password has updated',
                 'user' => $user,
             ], 200);
         }
