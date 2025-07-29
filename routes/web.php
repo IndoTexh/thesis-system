@@ -58,7 +58,6 @@ Route::middleware(['auth'])->group(function() {
   Route::get('/admin/activate-supervisor-account', [ActivateAccController::class, 'showActivate']);
   Route::post('/admin/activate-supervisor-account/{user}', [ActivateAccController::class, 'activate']);
   Route::post('/admin/disactivate-supervisor-account/{user}', [ActivateAccController::class, 'disactivate']);
-
 });
 
 
