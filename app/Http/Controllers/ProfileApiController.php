@@ -56,7 +56,7 @@ class ProfileApiController extends Controller
             $user->password = Hash::make($request->new_password);
             $user->force_logout = true;
             $user->tokens->delete();
-            $user->save;
+            $user->save();
             return response()->json([
                 'message' => 'User password has updated',
                 'user' => $user,
