@@ -39,7 +39,7 @@ class ProfileApiController extends Controller
             $user->email = $request->email;
             $user->save();
             return response()->json([
-                'message' => 'User credentials updated successfully',
+                'message' => Service::updateCredentialMessage(),
                 'user' => $user,
             ], 200);
         }
@@ -58,7 +58,7 @@ class ProfileApiController extends Controller
             $user->tokens->delete();
             $user->save();
             return response()->json([
-                'message' => 'User password has updated',
+                'message' => Service::updatePasswordMessage(),
                 'user' => $user,
             ], 200);
         }

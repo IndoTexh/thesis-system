@@ -60,8 +60,8 @@ class AuthApiController extends Controller
         $user->save();
         return response()->json([
             'message' => 'User registered successfully',
-            'token' => $user->createToken('auth_token')->plainTextToken,
-            'user' => $user,
+            'token' => in_array($request->role, [RoleService::admin(), RoleService::supervisor()]) ? '' : $user->createToken('auth_token')->plainTextToken,
+            'user' => $user
         ], 200);
     }
 
@@ -98,14 +98,15 @@ class AuthApiController extends Controller
             $user->tokens()->delete();
             return response()->json([
                 'logout' => true,
-                'message' => 'Session expired or force logout.'
+                'message' => Service::sessionExpiredOrForceLogout()
             ], 401);
         }
 
         return response()->json([
             'logout' => false,
             'user' => $user
-        ], 200);
+            'message' => Service::userNotFound()
+        ], 404);
     }
 
 

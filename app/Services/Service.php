@@ -66,4 +66,19 @@ class Service
     {
         return "Thesis not found.";
     }
+
+    public static function updatePasswordMessage()
+    {
+        return "User password has updated";
+    }
+
+    public static function updateCredentialMessage()
+    {
+        return "User credentials updated successfully";
+    }
+
+    public static function sessionExpiredOrForceLogout() 
+    {
+        return "Session expired or force logout.";
+    }
 }

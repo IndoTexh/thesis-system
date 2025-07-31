@@ -38,7 +38,9 @@ class User extends Authenticatable
     }
 
     public function supervisedClasses() {
-        return $this->belongsToMany(Classes::class, 'class_supervisors', 'classes_id', 'supervisor_id');
+        //return $this->belongsToMany(Classes::class, 'class_supervisors', 'classes_id', 'supervisor_id');
+        return $this->belongsToMany(Classes::class, 'class_supervisors', 'supervisor_id', 'classes_id');
+
     }
 
     /**
