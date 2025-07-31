@@ -104,8 +104,8 @@ class AuthApiController extends Controller
 
         return response()->json([
             'logout' => false,
-            'user' => $user
-            'message' => Service::userNotFound()
+            'user' => $user,
+            'message' => Service::userNotFound(),
         ], 404);
     }
 
