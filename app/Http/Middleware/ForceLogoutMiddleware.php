@@ -22,7 +22,12 @@ class ForceLogoutMiddleware
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect('/login')->with('message', 'You have been logged out from all devices');
+            
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'You have been logged out.'], 401);
+            }
+
+            return redirect('/login')->with('message', 'You have been logged out...');
         }
         return $next($request);
     }

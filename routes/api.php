@@ -10,10 +10,17 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::middleware('auth:sanctum')->post('/check-session', [AuthApiController::class, 'checkSession']);
+
+
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
 Route::post('/logout', [AuthApiController::class, 'logout']);
-Route::post('/check-session', [AuthApiController::class, 'checkSession']);
+// Route::post('/check-session', [AuthApiController::class, 'checkSession']);
 
 // Thesis
 Route::post('/thesis-upload', [ThesisApiController::class, 'store']);

@@ -27,6 +27,7 @@ class AuthApiController extends Controller
                 return response()->json([
                     'message' => Service::welcomeMessage(),
                     'token' => $user->createToken('auth_token')->plainTextToken,
+                    'user' => $user,
                 ], 200);
             }
             if (!$user->allow_access) {
@@ -60,7 +61,7 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'User registered successfully',
             'token' => $user->createToken('auth_token')->plainTextToken,
-            'user' => $user
+            'user' => $user,
         ], 200);
     }
 
@@ -68,7 +69,7 @@ class AuthApiController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            $user->tokens->delete();
+            $user->tokens()->delete();
             $user->force_logout = true;
             $user->save();
             return response()->json([
@@ -85,15 +86,27 @@ class AuthApiController extends Controller
     public function checkSession(Request $request)
     {
         $user = $request->user();
-        if ($user && $user->force_logout) {
-            $user->tokens->delete();
+
+        if (!$user) {
+            return response()->json([
+                'logout' => true,
+                'message' => 'Session invalid or expired.'
+            ], 401);
+        }
+
+        if ($user->force_logout) {
+            $user->tokens()->delete();
             return response()->json([
                 'logout' => true,
                 'message' => 'Session expired or force logout.'
             ], 401);
         }
+
         return response()->json([
             'logout' => false,
+            'user' => $user
         ], 200);
     }
+
+
 }
