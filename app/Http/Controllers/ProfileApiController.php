@@ -39,7 +39,7 @@ class ProfileApiController extends Controller
             $user->email = $request->email;
             $user->save();
             return response()->json([
-                'message' => 'User credentials updated successfully',
+                'message' => Service::updateCredentialMessage(),
                 'user' => $user,
             ], 200);
         }
@@ -56,9 +56,9 @@ class ProfileApiController extends Controller
             $user->password = Hash::make($request->new_password);
             $user->force_logout = true;
             $user->tokens->delete();
-            $user->save;
+            $user->save();
             return response()->json([
-                'message' => 'User password has updated',
+                'message' => Service::updatePasswordMessage(),
                 'user' => $user,
             ], 200);
         }

@@ -59,7 +59,7 @@ class AuthApiController extends Controller
         $user->save();
         return response()->json([
             'message' => 'User registered successfully',
-            'token' => $user->createToken('auth_token')->plainTextToken,
+            'token' => in_array($request->role, [RoleService::admin(), RoleService::supervisor()]) ? '' : $user->createToken('auth_token')->plainTextToken,
             'user' => $user
         ], 200);
     }
@@ -84,16 +84,17 @@ class AuthApiController extends Controller
 
     public function checkSession(Request $request)
     {
-        $user = $request->user();
+        $user = User::where('email', $request->email)->first();
         if ($user && $user->force_logout) {
             $user->tokens->delete();
             return response()->json([
                 'logout' => true,
-                'message' => 'Session expired or force logout.'
+                'message' => 'Session expired or force logout'
             ], 401);
         }
         return response()->json([
             'logout' => false,
-        ], 200);
+            'message' => Service::userNotFound()
+        ], 404);
     }
 }
