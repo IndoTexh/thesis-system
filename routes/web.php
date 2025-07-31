@@ -60,5 +60,7 @@ Route::middleware(['auth'])->group(function() {
   Route::post('/admin/disactivate-supervisor-account/{user}', [ActivateAccController::class, 'disactivate']);
 });
 
-
+Route::middleware(['auth'])->group(function() {
+  Route::get('/supervisor/{id}/class-students', [SupervisorClassController::class, 'classStudent']);
+});
 
