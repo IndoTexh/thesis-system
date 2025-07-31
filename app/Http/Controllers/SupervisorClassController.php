@@ -45,4 +45,9 @@ class SupervisorClassController extends Controller
         $supervisor = User::with('supervisedClasses')->where('id', $request->user()->id)->first();
         return Inertia::render('SupervisorClass/MyClass', ['supervisor' => $supervisor]);
     }
+
+    public function classStudent(Request $request)
+    {
+        
+    }
 }
