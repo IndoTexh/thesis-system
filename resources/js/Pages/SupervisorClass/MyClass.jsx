@@ -1,7 +1,8 @@
-const MyClass = () => {
+
+
+const MyClass = ({ supervisor }) => {
   return (
     <>
-      <h1>my class</h1>
     </>
   )
 }

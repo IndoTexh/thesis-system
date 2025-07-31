@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\RoleService;
 use App\Services\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
 
 class SupervisorClassController extends Controller
@@ -39,8 +40,9 @@ class SupervisorClassController extends Controller
         ]);
     }
 
-    public function myClass()
+    public function myClass(Request $request)
     {
-        return Inertia::render('SupervisorClass/MyClass');
+        $supervisor = User::with('supervisedClasses')->where('id', $request->user()->id)->first();
+        return Inertia::render('SupervisorClass/MyClass', ['supervisor' => $supervisor]);
     }
 }

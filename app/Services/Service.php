@@ -76,4 +76,9 @@ class Service
     {
         return "User credentials updated successfully";
     }
+
+    public static function sessionExpiredOrForceLogout() 
+    {
+        return "Session expired or force logout.";
+    }
 }

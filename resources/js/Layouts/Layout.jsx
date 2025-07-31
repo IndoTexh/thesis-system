@@ -64,9 +64,7 @@ const Layout = ({ children }) => {
             )}
             
             {auth?.user?.role === 'admin' ? (
-              <Link href="/dashboard" className="text-white  font-medium">
-                Dashboard
-              </Link>
+              <Link href="/profile/upload" className="text-white  font-medium">Upload profile</Link>
             ) : (
               <Link href="/profile/upload" className="text-white  font-medium">Upload profile</Link>
             ) }

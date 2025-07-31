@@ -89,7 +89,7 @@ class AuthApiController extends Controller
             $user->tokens->delete();
             return response()->json([
                 'logout' => true,
-                'message' => 'Session expired or force logout'
+                'message' => Service::sessionExpiredOrForceLogout()
             ], 401);
         }
         return response()->json([
