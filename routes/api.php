@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->post('/check-session', [AuthApiController::cl
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
 Route::post('/logout', [AuthApiController::class, 'logout']);
+Route::post('/refresh-token', [AuthApiController::class, 'refreshToken']);
 // Route::post('/check-session', [AuthApiController::class, 'checkSession']);
 
 // Thesis
