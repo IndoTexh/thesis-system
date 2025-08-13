@@ -1,5 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { PrimeReactProvider } from "@primereact/core"
+import { PrimeReactProvider } from "primereact/api";
 import Aura from '@primeuix/themes/aura';
 import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
